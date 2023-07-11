@@ -1,28 +1,32 @@
-import React, { useContext } from 'react'
+import React, { useContext, useEffect } from 'react'
 import CartContext from '../store/CartContext'
 import { Modal, Button } from 'react-bootstrap'
 import axios from 'axios'
 
 export default function Cart(props) {
     // var arr=[{}]
+    var arr = []
     const cartCtx = useContext(CartContext)
     var total = 0
-    const url = 'https://crudcrud.com/api/f9944aba18e94ed8aabea99f8b133281/items/'
-    var itemsCC =''
-    axios.get(url).then(res => {
-        console.log(res.data)
-        itemsCC = res.data
-         
-    })
+    const url = 'https://crudcrud.com/api/a84fd2f7889e46f080c3758a3637e072/items/'
+    // var itemsCC = ''
+    useEffect(() => {
+        axios.get(url).then(res => {
+            console.log(res.data)
+            
+        })
+    }, [])
+
     console.log(cartCtx.items)
-    const arr = cartCtx.items.map((item) => {
-        total+=Number(item.price)
+
+    arr = cartCtx.items.map((item) => {
+        total += Number(item.price)
         return (
             <tr>
                 <td>{item.name}</td>
                 <td>{item.size}</td>
                 <td>{item.price}</td>
-                
+
             </tr>)
     }
     )
